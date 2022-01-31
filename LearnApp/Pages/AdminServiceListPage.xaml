@@ -6,20 +6,20 @@
       xmlns:local="clr-namespace:LearnApp.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AdminServiceListPage">
+      Title="AdminServiceListPage" IsVisibleChanged="PageVisChange">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <UniformGrid Columns="3">
-            <TextBox Margin="20"/>
-            <ComboBox Margin="20"/>
-            <ComboBox Margin="20"/>
+            <TextBox Name="TbSearch" Margin="20" TextChanged="TbSearchChanged"/>
+            <ComboBox Name="CbSort" Margin="20" SelectionChanged="CbSortChange"/>
+            <ComboBox Name="CbFilter" Margin="20" SelectionChanged="CbSortChange"/>
         </UniformGrid>
-
         <ListView Name="LvServices" Grid.Row="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -39,19 +39,20 @@
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Image Margin="10" Source="{Binding MainImage}" />
+                            <Image Margin="10" Source="{Binding MainImage, TargetNullValue={StaticResource Picture}}" />
                             <UniformGrid Rows="4" Grid.Column="1" Margin="10">
                                 <UniformGrid.Resources>
                                     <Style x:Key="DiscontBasePrice" TargetType="Run">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsDiscount}" Value="True">
                                                 <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                <Setter Property="Text" Value="{Binding Cost}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                     <Style x:Key="DiscontValue" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsDiscount}" Value="True">
+                                            <DataTrigger Binding="{Binding IsDiscount}" Value="False">
                                                 <Setter Property="Visibility" Value="Hidden"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -59,7 +60,7 @@
                                 </UniformGrid.Resources>
                                 <TextBlock Text="{Binding Title}"/>
                                 <TextBlock>
-                                <Run Text="{Binding Cost}" Style="{StaticResource DiscontBasePrice}"/>
+                                <Run Style="{StaticResource DiscontBasePrice}"/>
                                 <Run Text="{Binding DiscountPrice}"/>
                                 <Run Text="рублей за"/>
                                 <Run Text="{Binding DurationImMinute}"/>
@@ -76,9 +77,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <TextBlock Name="TbNotFound" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Text="Нет результатов для вывода" FontSize="30"/>
+
         <UniformGrid Columns="2" Grid.Row="2">
             <Button  Content="Добавить" Margin="10" Click="BtAddClick"/>
             <Button Content="Ближайшие записи" Margin="10" Click="BtOrderListClick"/>
         </UniformGrid>
+
+        <TextBlock Name="TbResultCount" Grid.Row="3" Text="2 из 100 результатов"/>
     </Grid>
 </Page>

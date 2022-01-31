@@ -15,17 +15,40 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Border BorderThickness="1" BorderBrush="Gray" Margin="5">
-            <Grid Height="200">
+            <Grid Height="200" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Image Margin="10" Source="/Resources/school_logo.png" />
+                <Image Margin="10" Source="{Binding Service.MainImage}" />
                 <UniformGrid Rows="4" Grid.Column="1" Margin="10">
-                    <TextBlock Text="Наименование услуги"/>
-                    <TextBlock Text="800 рублей за 30 минут"/>
-                    <TextBlock Text="*Скидка 10%" FontSize="15"/>
-                    <TextBlock Text="Описание"/>
+                    <UniformGrid.Resources>
+                        <Style x:Key="DiscontBasePrice" TargetType="Run">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Service.IsDiscount}" Value="True">
+                                    <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                    <Setter Property="Text" Value="{Binding Cost}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style x:Key="DiscontValue" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Service.IsDiscount}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </UniformGrid.Resources>
+                    <TextBlock Text="{Binding Service.Title}"/>
+                    <TextBlock>
+                                    <Run Style="{StaticResource DiscontBasePrice}"/>
+                                    <Run Text="{Binding Service.DiscountPrice}"/>
+                                    <Run Text="рублей за"/>
+                                    <Run Text="{Binding Service.DurationImMinute}"/>
+                                    <Run Text="минут"/>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Service.Discount, StringFormat='*Скидка {0}%'}" FontSize="15" Style="{StaticResource DiscontValue}"/>
+                    <TextBlock Text="{Binding Service.Description}"/>
                 </UniformGrid>
             </Grid>
         </Border>
@@ -38,13 +61,13 @@
                     </Style>
                 </StackPanel.Resources>
                 <TextBlock Text="Клиент"/>
-                <ComboBox Name="CbClient" FontSize="20"/>
+                <ComboBox Name="CbClient" DisplayMemberPath="FIO" FontSize="20" SelectedItem="{Binding Client}"/>
                 <TextBlock Text="Дата"/>
-                <DatePicker FontSize="20"/>
+                <DatePicker SelectedDate="{Binding StartTime}" FontSize="20"/>
                 <TextBlock Text="Время оказания услуги"/>
-                <TextBox Text="10:15"/>
+                <TextBox Text="{Binding StartTime, StringFormat='HH:mm'}"/>
             </StackPanel>
         </ScrollViewer>
-        <Button Grid.Row="2" Content="Записаться" Background="{StaticResource Accent}"/>
+        <Button Grid.Row="2" Content="Записаться" Background="{StaticResource Accent}" Click="BtAddOrderClick" />
     </Grid>
 </Page>
