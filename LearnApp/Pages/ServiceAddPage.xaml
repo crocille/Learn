@@ -1,0 +1,61 @@
+﻿<Page x:Class="LearnApp.Pages.ServiceAddPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LearnApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ServiceAddPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <StackPanel Width="500">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
+                        <Setter Property="Margin" Value="0, 10, 0, 3"/>
+                        <Setter Property="FontSize" Value="18"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Image Source="/Resources/school_logo.png" Height="200" />
+
+                <TextBlock Text="Название"/>
+                <TextBox/>
+                <TextBlock Text="Стоимость"/>
+                <TextBox/>
+                <TextBlock Text="Длительность"/>
+                <TextBox/>
+                <TextBlock Text="Описание"/>
+                <TextBox TextWrapping="Wrap" AcceptsReturn="True"/>
+                <TextBlock Text="Скидка"/>
+                <TextBox/>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <StackPanel Orientation="Horizontal" Height="100">
+                        <StackPanel.Resources>
+                            <Style TargetType="Image">
+                                <Setter Property="Margin" Value="5"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Image Source="/Resources/school_logo.png"  />
+                        <Image Source="/Resources/school_logo.png" />
+                        <Image Source="/Resources/school_logo.png" />
+                        <Image Source="/Resources/school_logo.png" />
+                        <Image Source="/Resources/school_logo.png" />
+                        <Image Source="/Resources/school_logo.png" />
+                        <Image Source="/Resources/school_logo.png" />
+                        <Image Source="/Resources/school_logo.png" />
+                    </StackPanel>
+                </ScrollViewer>
+                <UniformGrid Columns="2">
+                    <Button Content="Добавить" Margin="5"/>
+                    <Button Content="Удалить" Margin="5"/>
+                </UniformGrid>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="1" Content="Сохранить"/>
+    </Grid>
+</Page>
