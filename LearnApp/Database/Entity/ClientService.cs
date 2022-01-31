@@ -1,4 +1,4 @@
-namespace LearnApp.Database
+﻿namespace LearnApp.Database
 {
     using System;
     using System.Collections.Generic;
@@ -23,6 +23,15 @@ namespace LearnApp.Database
         public int ServiceID { get; set; }
 
         public DateTime StartTime { get; set; } = DateTime.Now;
+
+        public string TimeToStart
+        {
+            get
+            {
+                TimeSpan time = StartTime - DateTime.Now;
+                return string.Format("{0} Часов {1} Минут", time.Hours, time.Minutes, time.Seconds);
+            }
+        }
 
         [StringLength(1073741823)]
         public string Comment { get; set; }

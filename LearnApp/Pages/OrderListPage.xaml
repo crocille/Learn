@@ -9,14 +9,14 @@
       Title="OrderListPage">
 
     <Grid>
-        <DataGrid Margin="10" AutoGenerateColumns="False">
+        <DataGrid Name="DgvOrders" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Наименование услуги" Width="*"/>
-                <DataGridTextColumn Header="ФИО клиента"  Width="*"/>
-                <DataGridTextColumn Header="Email" Width="*"/>
-                <DataGridTextColumn Header="Телефон" Width="*"/>
-                <DataGridTextColumn Header="Дата/Время записи" Width="*"/>
-                <DataGridTextColumn Header="Осталось до начала" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Service.Title}" Header="Наименование услуги" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Client.FIO}" Header="ФИО клиента"  Width="*"/>
+                <DataGridTextColumn Binding="{Binding Client.Email}" Header="Email" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Client.Phone}" Header="Телефон" Width="*"/>
+                <DataGridTextColumn Binding="{Binding StartTime, StringFormat='dd-MM-yyyy HH:mm'}" Header="Дата/Время записи" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TimeToStart, StringFormat='h m s'}" Header="Осталось до начала" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

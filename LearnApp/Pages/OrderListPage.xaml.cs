@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearnApp.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace LearnApp.Pages
 {
@@ -20,9 +22,34 @@ namespace LearnApp.Pages
     /// </summary>
     public partial class OrderListPage : Page
     {
+        DispatcherTimer timer = new DispatcherTimer();
+        private static void TimerTick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public OrderListPage()
         {
             InitializeComponent();
+            UpdateData();
+
+            timer.Interval = TimeSpan.FromSeconds(13);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            UpdateData();
+        }
+
+        private void UpdateData()
+        {
+            DgvOrders.ItemsSource = null;
+            DateTime LastDate = DateTime.Now.AddDays(1);
+            DgvOrders.ItemsSource = EfModel.Init().ClientServices
+                .Where(cs => cs.StartTime > DateTime.Now && cs.StartTime < LastDate)
+                .OrderBy(cs => cs.StartTime).ToList();
         }
     }
 }
