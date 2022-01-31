@@ -1,4 +1,5 @@
-﻿using LearnApp.Pages;
+﻿using LearnApp.Database;
+using LearnApp.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace LearnApp
         public MainWindow()
         {
             InitializeComponent();
+            //ImportClass.ImportClient();
+            // ImportClass.ImportServices();
+            ImportClass.ImportClientService();
             FrNav.Navigate(new StartPage());
         }
     }

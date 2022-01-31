@@ -108,6 +108,7 @@
     <Compile Include="Database\Entity\Service.cs" />
     <Compile Include="Database\Entity\ServicePhoto.cs" />
     <Compile Include="Database\Entity\Tag.cs" />
+    <Compile Include="Database\ImportClass.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

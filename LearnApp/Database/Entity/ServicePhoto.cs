@@ -14,8 +14,7 @@ namespace LearnApp.Database
         public int ServiceID { get; set; }
 
         [Required]
-        [StringLength(1000)]
-        public string PhotoPath { get; set; }
+        public byte[] Photo { get; set; }
 
         public virtual Service Service { get; set; }
     }
