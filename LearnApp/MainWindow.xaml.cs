@@ -27,7 +27,7 @@ namespace LearnApp
             InitializeComponent();
             //ImportClass.ImportClient();
             // ImportClass.ImportServices();
-            ImportClass.ImportClientService();
+           // ImportClass.ImportClientService();
             FrNav.Navigate(new StartPage());
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearnApp.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace LearnApp.Pages
         public AdminServiceListPage()
         {
             InitializeComponent();
+            LvServices.ItemsSource = EfModel.Init().Services.ToList();
         }
 
         private void BtRemoveClick(object sender, RoutedEventArgs e)

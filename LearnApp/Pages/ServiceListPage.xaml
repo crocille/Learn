@@ -18,49 +18,60 @@
             <ComboBox Margin="20"/>
             <ComboBox Margin="20"/>
         </UniformGrid>
-        <StackPanel Grid.Row="1">
-            <Border BorderThickness="1" BorderBrush="Gray" Margin="5" Background="#FFD4FFC4">
-                <Grid Height="200">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Image Margin="10" Source="/Resources/school_logo.png" />
-                    <UniformGrid Rows="4" Grid.Column="1" Margin="10">
-                        <TextBlock Text="Наименование услуги"/>
-                        <TextBlock>
-                            <Run Text="800" TextDecorations="Strikethrough"/>
-                            <Run Text="720"/>
-                            <Run Text="рублей за"/>
-                            <Run Text="30"/>
-                            <Run Text="минут"/>
-                        </TextBlock>
-                        <TextBlock Text="*скидка 10%" FontSize="15"/>
-                        <Button Content="Записаться" Margin="5" Background="{StaticResource Accent}"/>
-                    </UniformGrid>
-                </Grid>
-            </Border>
-            <Border BorderThickness="1" BorderBrush="Gray" Margin="5">
-                <Grid Height="200">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Image Margin="10" Source="/Resources/school_logo.png" />
-                    <UniformGrid Rows="4" Grid.Column="1" Margin="10">
-                        <TextBlock Text="Наименование услуги"/>
-                        <TextBlock>
-                            <Run Text="800"/>
-                            <Run Text=""/>
-                            <Run Text="рублей за"/>
-                            <Run Text="30"/>
-                            <Run Text="минут"/>
-                        </TextBlock>
-                        <TextBlock Text="" FontSize="15"/>
-                        <Button Content="Записаться" Margin="5" Background="{StaticResource Accent}"/>
-                    </UniformGrid>
-                </Grid>
-            </Border>
-        </StackPanel>
+        <ListView Name="LvServices" Grid.Row="1">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsDiscount}" Value="True">
+                            <Setter Property="Background" Value="#FFD4FFC4"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Gray" Margin="5">
+                        <Grid Height="200">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Margin="10" Source="{Binding MainImage}" />
+                            <UniformGrid Rows="4" Grid.Column="1" Margin="10">
+                                <UniformGrid.Resources>
+                                    <Style x:Key="DiscontBasePrice" TargetType="Run">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDiscount}" Value="True">
+                                                <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                    <Style x:Key="DiscontValue" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDiscount}" Value="True">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </UniformGrid.Resources>
+                                <TextBlock Text="{Binding Title}"/>
+                                <TextBlock>
+                                <Run Text="{Binding Cost}" Style="{StaticResource DiscontBasePrice}"/>
+                                <Run Text="{Binding DiscountPrice}"/>
+                                <Run Text="рублей за"/>
+                                <Run Text="{Binding DurationImMinute}"/>
+                                <Run Text="минут"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Discount, StringFormat='*Скидка {0}%'}" FontSize="15" Style="{StaticResource DiscontValue}"/>
+                                <Button Content="Записаться" Margin="5" Background="{StaticResource Accent}"/>
+                            </UniformGrid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+       
     </Grid>
 </Page>

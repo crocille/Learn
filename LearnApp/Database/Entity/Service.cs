@@ -26,10 +26,34 @@ namespace LearnApp.Database
 
         public int DurationInSeconds { get; set; }
 
+        [NotMapped]
+        public int DurationImMinute
+        {
+            get
+            {
+                return DurationInSeconds / 60;
+            }
+            set { }
+        }
         [StringLength(1073741823)]
         public string Description { get; set; }
 
         public double? Discount { get; set; }
+
+        public bool IsDiscount => Discount != null;
+
+        [NotMapped]
+        public decimal? DiscountPrice
+        {
+            get
+            {
+                if(Discount!=null)
+                    return  Cost - (Cost / 100) * (decimal)Discount;
+                return null;
+            }
+            set { }
+        }
+            
 
         public byte[] MainImage { get; set; }
 
