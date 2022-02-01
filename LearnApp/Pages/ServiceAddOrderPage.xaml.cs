@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LearnApp.Database;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,29 @@ namespace LearnApp.Pages
     /// </summary>
     public partial class ServiceAddOrderPage : Page
     {
-        public ServiceAddOrderPage()
+        ClientService clientService;
+        public ServiceAddOrderPage(Service service)
         {
+            clientService = new ClientService { Service = service };
             InitializeComponent();
+            DataContext = clientService;
+            CbClient.ItemsSource = EfModel.Init().Clients.ToList();
+        }
+
+        private void BtAddOrderClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (clientService.ID == 0)
+                    EfModel.Init().ClientServices.Add(clientService);
+                EfModel.Init().SaveChanges();
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, ex.EntityValidationErrors.Last().ValidationErrors.Select(ve => ve.ErrorMessage)));
+            }
         }
     }
 }

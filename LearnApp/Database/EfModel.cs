@@ -7,6 +7,13 @@ namespace LearnApp.Database
 {
     public partial class EfModel : DbContext
     {
+        private static EfModel Instance;
+        public static EfModel Init() {
+            if (Instance == null)
+                Instance = new EfModel();
+            return Instance;
+        }
+
         public EfModel()
             : base("name=EfModel")
         {
@@ -146,10 +153,6 @@ namespace LearnApp.Database
                 .HasMany(e => e.ServicePhotoes)
                 .WithRequired(e => e.Service)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ServicePhoto>()
-                .Property(e => e.PhotoPath)
-                .IsUnicode(false);
 
             modelBuilder.Entity<Tag>()
                 .Property(e => e.Title)

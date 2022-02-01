@@ -14,48 +14,53 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <ScrollViewer>
-            <StackPanel Width="500">
+            <StackPanel Width="700">
+                
                 <StackPanel.Resources>
                     <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
                         <Setter Property="Margin" Value="0, 10, 0, 3"/>
                         <Setter Property="FontSize" Value="18"/>
                     </Style>
+                    <Style x:Key="tbIdent" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ID}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
                 </StackPanel.Resources>
-                <Image Source="/Resources/school_logo.png" Height="200" />
+                <Image Source="{Binding MainImage, TargetNullValue={StaticResource Picture}}" Height="200" MouseDown="BtImageClick" />
 
+                <TextBlock Style="{StaticResource tbIdent}" Text="{Binding ID, StringFormat='Идентификатор {0}'}"/>
                 <TextBlock Text="Название"/>
-                <TextBox/>
+                <TextBox Text="{Binding Title}"/>
                 <TextBlock Text="Стоимость"/>
-                <TextBox/>
-                <TextBlock Text="Длительность"/>
-                <TextBox/>
+                <TextBox Text="{Binding Cost}"/>
+                <TextBlock Text="Длительность в секундах"/>
+                <TextBox Text="{Binding DurationInSeconds}"/>
                 <TextBlock Text="Описание"/>
-                <TextBox TextWrapping="Wrap" AcceptsReturn="True"/>
+                <TextBox Text="{Binding Description}" TextWrapping="Wrap" AcceptsReturn="True"/>
                 <TextBlock Text="Скидка"/>
-                <TextBox/>
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                    <StackPanel Orientation="Horizontal" Height="100">
-                        <StackPanel.Resources>
-                            <Style TargetType="Image">
-                                <Setter Property="Margin" Value="5"/>
-                            </Style>
-                        </StackPanel.Resources>
-                        <Image Source="/Resources/school_logo.png"  />
-                        <Image Source="/Resources/school_logo.png" />
-                        <Image Source="/Resources/school_logo.png" />
-                        <Image Source="/Resources/school_logo.png" />
-                        <Image Source="/Resources/school_logo.png" />
-                        <Image Source="/Resources/school_logo.png" />
-                        <Image Source="/Resources/school_logo.png" />
-                        <Image Source="/Resources/school_logo.png" />
-                    </StackPanel>
-                </ScrollViewer>
+                <TextBox Text="{Binding Discount}"/>
+
+                <ListView Margin="0, 10" Name="LVServicePhotos" ItemsSource="{Binding ServicePhotoes}" Height="180" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Photo}" Margin="10" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <UniformGrid Columns="2">
-                    <Button Content="Добавить" Margin="5"/>
-                    <Button Content="Удалить" Margin="5"/>
+                    <Button Content="Добавить" Margin="5" Click="AddPhoto"/>
+                    <Button Content="Удалить" Margin="5" Click="DelPhoto"/>
                 </UniformGrid>
             </StackPanel>
         </ScrollViewer>
-        <Button Grid.Row="1" Content="Сохранить"/>
+        <Button Grid.Row="1" Content="Сохранить" Click="BtSaveClick"/>
     </Grid>
 </Page>

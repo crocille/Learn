@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:LearnApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <BitmapImage x:Key="Picture" UriSource="/Resources/school_logo.png"/>
+
         <SolidColorBrush x:Key="Add" Color="#FFE7FABF"/>
         <SolidColorBrush x:Key="Accent" Color="#FF04A0FF"/>
         <!--TextBlock-->
