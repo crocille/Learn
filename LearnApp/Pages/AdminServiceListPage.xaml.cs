@@ -101,7 +101,10 @@ namespace LearnApp.Pages
                 if (MessageBox.Show("Вы действительно хотите удалить услугу " + service.Title + "?", "Удаление услуги", MessageBoxButton.YesNo)
                     == MessageBoxResult.Yes)
                 {
-                    service.ServicePhotoes.Clear();
+                    foreach (ServicePhoto photo in service.ServicePhotoes.ToList())
+                    {
+                        EfModel.Init().ServicePhotoes.Remove(photo);
+                    }
                     EfModel.Init().Services.Remove(service);
                     EfModel.Init().SaveChanges();
 

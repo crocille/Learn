@@ -56,10 +56,37 @@ namespace LearnApp.Pages
         private void BtImageClick(object sender, MouseButtonEventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "JPG files|*.jpg";
+            openFile.Filter = "JPG files|*.jpg|All files|*.*";
             if(openFile.ShowDialog() == true)
             {
                 service.MainImage = File.ReadAllBytes(openFile.FileName);
+            }
+        }
+
+        private void AddPhoto(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFile = new OpenFileDialog { Filter = "Jpeg files|*.jpg|All files|*.*" };
+                if (openFile.ShowDialog() == true)
+                {
+                    service.ServicePhotoes.Add(new ServicePhoto { Photo = File.ReadAllBytes(openFile.FileName) });
+                }
+                LVServicePhotos.Items.Refresh();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка при открытии файла!");
+            }
+        }
+
+        private void DelPhoto(object sender, RoutedEventArgs e)
+        {
+            if (LVServicePhotos.SelectedItems.Count > 0)
+            {
+                ServicePhoto photo = LVServicePhotos.SelectedItem as ServicePhoto;
+                EfModel.Init().ServicePhotoes.Remove(photo);
+                LVServicePhotos.Items.Refresh();
             }
         }
     }

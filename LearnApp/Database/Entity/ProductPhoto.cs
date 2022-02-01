@@ -14,7 +14,7 @@ namespace LearnApp.Database
         public int ProductID { get; set; }
 
         [Required]
-        public byte[] PhotoPath { get; set; }
+        public byte[] Photo { get; set; }
 
         public virtual Product Product { get; set; }
     }
