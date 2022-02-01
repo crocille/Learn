@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnApp", "LearnApp\LearnApp.csproj", "{B64AD51C-8D6C-43C7-ABB5-44A8BEF0F42A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AC9F0CF-599E-49A1-86AD-4390CCD8A986}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77CAC6F6-E6C3-4018-99EF-6AA939916C42}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Desktop\Task_09\Общие ресурсы\README.md = ..\..\..\Desktop\Task_09\Общие ресурсы\README.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
