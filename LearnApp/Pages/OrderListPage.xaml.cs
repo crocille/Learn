@@ -23,11 +23,6 @@ namespace LearnApp.Pages
     public partial class OrderListPage : Page
     {
         DispatcherTimer timer = new DispatcherTimer();
-        private static void TimerTick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         public OrderListPage()
         {
             InitializeComponent();
@@ -45,11 +40,11 @@ namespace LearnApp.Pages
 
         private void UpdateData()
         {
-            DgvOrders.ItemsSource = null;
-            DateTime LastDate = DateTime.Now.AddDays(1);
+            DateTime LastDate = DateTime.Now.AddDays(2);
             DgvOrders.ItemsSource = EfModel.Init().ClientServices
                 .Where(cs => cs.StartTime > DateTime.Now && cs.StartTime < LastDate)
                 .OrderBy(cs => cs.StartTime).ToList();
+            DgvOrders.Items.Refresh();
         }
     }
 }

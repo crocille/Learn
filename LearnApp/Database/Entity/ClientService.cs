@@ -29,7 +29,7 @@
             get
             {
                 TimeSpan time = StartTime - DateTime.Now;
-                return string.Format("{0} Часов {1} Минут", time.Hours, time.Minutes, time.Seconds);
+                return string.Format("{0} ч {1} мин", time.Hours, time.Minutes);
             }
         }
 
